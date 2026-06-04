@@ -1,33 +1,17 @@
-#!/bin/env bash
-
-# HINT: You can test the result of this script using the following command:
-# printf "8000\n2000\n" | ./memory-checker
-
-# Step 1: Read two numbers from stdin.
-#   First line = total RAM in MB, second line = used RAM in MB.
 read -r total_mb
 read -r used_mb
 
-# Step 2: Calculate free MB.
-#   Use bash arithmetic: free_mb=$(( total_mb - used_mb ))
+free_mb=$(( total_mb - used_mb ))
+usage=$(( used_mb * 100 / total_mb ))
 
-# Step 3: Calculate usage percentage (integer division).
-#   Use: usage=$(( used_mb * 100 / total_mb ))
+if (( usage >= 90 )); then
+    status="Critical"
+elif (( usage >= 70 )); then
+    status="Warning"
+else
+    status="Normal"
+fi
 
-# Step 4: Determine status based on usage percentage.
-#   Use an if/elif/else statement:
-#     if (( usage >= 90 )); then
-#         status="Critical"
-#     elif (( usage >= 70 )); then
-#         status="Warning"
-#     else
-#         status="Normal"
-#     fi
-
-# Step 5: Print the result.
-#   echo "Free: $free_mb MB"
-#   echo "Usage: $usage%"
-#   echo "Status: $status"
-
-# TODO: Replace this line with your implementation
-echo "TODO"
+echo "Free: $free_mb MB"
+echo "Usage: $usage%"
+echo "Status: $status"
